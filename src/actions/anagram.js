@@ -1,19 +1,13 @@
 const fs = require('fs')
-// create array of inputs 
-// cross check input array with list of words
-// word to score value converter
+const path = require('path');
 
-let scrabble_dictionary = fs.readFileSync('../../public/scrabble_word_list.txt')
+const filterOutUnusedLetters = (letters) => {
+    const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+    const scrabble_dictionary = fs.readFileSync(path.join(__dirname,'../../public/scrabble_word_list.txt'))
                             .toString()
                             .split('\r\n')
                             .filter(word => word.length <= 7);
-
-const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-
-const letter_list = ['B', 'E', 'E', 'T', 'L', 'E'];
-
-
-const filterOutUnusedLetters = (letters) => {
+    
     let inversedLetters = alphabet.filter(char => !(letters.includes(char)));
     let filteredList = scrabble_dictionary.filter(word => word.length <= letters.length);
     inversedLetters.forEach(letter => {
@@ -40,16 +34,6 @@ const fuseWord = (letter_list) => {
 }
 
 const filterWordListByLetterFrequency = (user_letters, word_list) => {
-    // word_list.forEach(word => {
-    //     user_letters.forEach(letter => {
-    //         const dictWordFreq = getFrequencyOfLetterInWord(letter, word);
-    //         const userListFreq = getFrequencyOfLetterInWord(letter, fuseWord(user_letters));
-    //         if (dictWordFreq > userListFreq) {
-    //             word_list.filter(word => )
-    //         }
-    //     });
-    // });
-
     user_letters.forEach(letter => {
         const userLetterFrequency = getFrequencyOfLetterInWord(letter, fuseWord(user_letters));
         word_list = word_list.filter(word => !(getFrequencyOfLetterInWord(letter, word) > userLetterFrequency));
@@ -57,15 +41,52 @@ const filterWordListByLetterFrequency = (user_letters, word_list) => {
     return word_list;
 }
 
-let list_thin = filterOutUnusedLetters(letter_list);
-console.log(list_thin.length);
+const FindScrabbleWordsFromLetters = (letters) => {
+    return filterWordListByLetterFrequency(letters, filterOutUnusedLetters(letters));
+}
 
-console.log(filterWordListByLetterFrequency(letter_list, list_thin));
+const convertLetterToPointValue = (letter) => {
+    const tileScoreGroups = [ 
+        [['A', 'E', 'I', 'O', 'U', 'L', 'N', 'S', 'T', 'R'], 1],
+        [['D', 'G'], 2],
+        [['B', 'C', 'M', 'P'], 3],
+        [['F', 'H', 'V', 'W', 'Y'], 4],
+        [['K'], 5],
+        [['J', 'X'], 8],
+        [['Q', 'Z'], 10]
+    ];
+    let value = 0;
+    tileScoreGroups.forEach(tileGroup => {
+        // console.log(tileGroup[1]);
+        if (tileGroup[0].includes(letter)) {
+            // console.log("match");
+            value = tileGroup[1];
+        } else {
+            // console.log(tileGroup[0]);
+        }
+        // for (let i = 0; i < tileGroup[0].length; i++) {
+        //     console.log(tileGroup[0][i]);
 
-// export const readOnSubmit = (letters) => {
-//     console.log(letters);
-//     return letters;
-// }
+        //     if (tileGroup[0][i] === letter) {
+        //         return tileGroup[1];
+        //     }
+        // }
+    });
+    // for (let i = 0; i < tileScoreGroups.length; i++) {
+    //     console.log(tileScoreGroups[i][0]);
+    //     console.log(tileScoreGroups[i][1]);
+    // }
+    // return 1;
+    return value;
+}
+
+export { filterOutUnusedLetters, filterWordListByLetterFrequency, 
+    getFrequencyOfLetterInWord, convertLetterToPointValue, 
+    splitWord, fuseWord, FindScrabbleWordsFromLetters as default };
+
+
+
+
 
 
 
