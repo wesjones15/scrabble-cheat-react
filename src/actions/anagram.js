@@ -41,10 +41,6 @@ const filterWordListByLetterFrequency = (user_letters, word_list) => {
     return word_list;
 }
 
-const FindScrabbleWordsFromLetters = (letters) => {
-    return filterWordListByLetterFrequency(letters, filterOutUnusedLetters(letters));
-}
-
 const convertLetterToPointValue = (letter) => {
     const tileScoreGroups = [ 
         [['A', 'E', 'I', 'O', 'U', 'L', 'N', 'S', 'T', 'R'], 1],
@@ -57,32 +53,34 @@ const convertLetterToPointValue = (letter) => {
     ];
     let value = 0;
     tileScoreGroups.forEach(tileGroup => {
-        // console.log(tileGroup[1]);
         if (tileGroup[0].includes(letter)) {
-            // console.log("match");
             value = tileGroup[1];
-        } else {
-            // console.log(tileGroup[0]);
         }
-        // for (let i = 0; i < tileGroup[0].length; i++) {
-        //     console.log(tileGroup[0][i]);
-
-        //     if (tileGroup[0][i] === letter) {
-        //         return tileGroup[1];
-        //     }
-        // }
     });
-    // for (let i = 0; i < tileScoreGroups.length; i++) {
-    //     console.log(tileScoreGroups[i][0]);
-    //     console.log(tileScoreGroups[i][1]);
-    // }
-    // return 1;
     return value;
 }
 
+const getPointValueOfWord = (word) => {
+    const letters = splitWord(word);
+    let score = 0;
+    letters.forEach(letter => score+=convertLetterToPointValue(letter));
+    return score;
+}
+
+const getTopThreeBestWords = (words) => {
+    const words_with_scores = words.map((word, i) => ([ word, getPointValueOfWord(word) ]));
+    let sortedArray = words_with_scores.sort((a,b) => b[1]-a[1]).slice(0,3);
+    return sortedArray;
+}
+
+const FindScrabbleWordsFromLetters = (letters) => {
+    return filterWordListByLetterFrequency(letters, filterOutUnusedLetters(letters));
+}
+
 export { filterOutUnusedLetters, filterWordListByLetterFrequency, 
-    getFrequencyOfLetterInWord, convertLetterToPointValue, 
-    splitWord, fuseWord, FindScrabbleWordsFromLetters as default };
+    getFrequencyOfLetterInWord, convertLetterToPointValue, getPointValueOfWord, 
+    getTopThreeBestWords, splitWord, fuseWord, 
+    FindScrabbleWordsFromLetters as default };
 
 
 
