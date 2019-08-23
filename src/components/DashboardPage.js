@@ -1,9 +1,22 @@
 import React from 'react';
-
-const ExpenseDashboardPage = () => (
+import Header from './Header';
+import LetterInput from './LetterInput';
+import FindButton from './FindButton';
+const DashboardPage = () => (
     <div>
-        Dashboard page content
+        <Header />
+        <LetterInput />
+        <FindButton />
+
     </div>
 );
 
-export default ExpenseDashboardPage;
+// Scrabble Cheat Header Component
+// Letter Input Component (for x7)
+    // Letter Input Tile Component
+// Find Button Component
+// Results List Component
+    // Results List Item Component
+
+
+export default DashboardPage;
