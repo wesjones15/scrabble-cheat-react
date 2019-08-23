@@ -1,18 +1,47 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const LetterInput = () => (
-    <div>
-        <input />
-        <input />
-        <input />
-        <input />
-        <input />
-        <input />
-        <input />
-    </div>
-);
+import { readOnSubmit } from '../actions/anagram';
 
-export default LetterInput;
+class LetterInput extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            letters: ''
+        };
+    }
+
+    onInputChange = (e) => {
+        const letters = e.target.value;
+        this.setState(() => ({ letters }));
+        // console.log(this.state);
+    };
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        const letters = this.state.letters;
+        this.props.readOnSubmit(letters);
+        // console.log(this.state);
+    };
+
+    render() {
+        return (
+            <form onSubmit={this.onSubmit}>
+                <h1>Enter your seven letters</h1>
+                <input onChange={this.onInputChange} type="text"/>
+                <button>Find</button>
+            </form>
+        );
+    }
+    
+};
+
+const mapDispatchToProps = (dispatch) => ({
+    readOnSubmit: (letters) => dispatch(readOnSubmit(letters))
+});
+
+export default connect(undefined, mapDispatchToProps)(LetterInput);
 
 // take 7 separate 1 char inputs (ideally it will auto switch to next input on entry)
 // set into array of strings

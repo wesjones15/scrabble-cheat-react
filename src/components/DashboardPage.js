@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from './Header';
 import LetterInput from './LetterInput';
-import FindButton from './FindButton';
+import ResultsList from './ResultsList';
+import { createArrayFromFile } from '../actions/anagram';
 const DashboardPage = () => (
     <div>
         <Header />
         <LetterInput />
-        <FindButton />
-
+        <ResultsList />
     </div>
 );
 
