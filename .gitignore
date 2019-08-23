@@ -1,0 +1,5 @@
+**/node_modules
+**/__snapshots__
+public/dist/
+.env.test
+.env.development
