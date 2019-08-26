@@ -1,5 +1,6 @@
-import FindScrabbleWordsFromLetters, 
-    {   filterOutUnusedLetters, 
+import returnBestWords,
+        { findScrabbleWordsFromLetters, 
+        filterOutUnusedLetters, 
         filterWordListByLetterFrequency, 
         getFrequencyOfLetterInWord, 
         convertLetterToPointValue, 
@@ -7,9 +8,27 @@ import FindScrabbleWordsFromLetters,
         getTopThreeBestWords,
         splitWord, fuseWord } from '../../actions/anagram';
 
+test('should return 1 word(temp)', () => {
+    const letters = 'laptops';
+    const result = returnBestWords(letters);
+    expect(result).toEqual([["LAPTOP", 10]]);
+});
+
+test('should return 3 best words', () => {
+    const letters = 'BEETLE';
+    const result = returnBestWords(letters);
+    expect(result).toEqual([["BEETLE", 8], ["BELEE", 7], ["BETEL", 7]]);
+});
+
+// test('should return 3 best words', () => {
+//     const letters = ['B', 'E', 'E', 'T', 'L', 'E'];
+//     const result = returnBestWords(letters);
+//     expect(result).toEqual([["BEETLE", 8], ["BELEE", 7], ["BETEL", 7]]);
+// });
+
 test('should return all possible scrabble words', () => {
     const letters = ['B', 'E', 'E', 'T', 'L', 'E'];
-    const result = FindScrabbleWordsFromLetters(letters);
+    const result = findScrabbleWordsFromLetters(letters);
     expect(result.length).toEqual(25);
 });
 

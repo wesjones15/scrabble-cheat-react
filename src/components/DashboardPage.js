@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './Header';
 import LetterInput from './LetterInput';
 import ResultsList from './ResultsList';
-import { createArrayFromFile } from '../actions/anagram';
+
 const DashboardPage = () => (
     <div>
         <Header />

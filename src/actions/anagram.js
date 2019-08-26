@@ -1,13 +1,15 @@
-const fs = require('fs')
+// const fs = require('fs');
 const path = require('path');
 
 const filterOutUnusedLetters = (letters) => {
     const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-    const scrabble_dictionary = fs.readFileSync(path.join(__dirname,'../../public/scrabble_word_list.txt'))
-                            .toString()
-                            .split('\r\n')
-                            .filter(word => word.length <= 7);
-    
+    const pathToWordList = path.resolve(__dirname,'../../public/scrabble_word_list.txt');
+    const scrabble_dictionary = ["DAYCARE", "REALITY", "ARTIST", "PISTOL", "LAPTOP"];  //temp 
+    // const scrabble_dictionary = fs.readFileSync(pathToWordList)
+    //                         .toString()
+    //                         .split('\r\n')
+    //                         .filter(word => word.length <= 7);
+
     let inversedLetters = alphabet.filter(char => !(letters.includes(char)));
     let filteredList = scrabble_dictionary.filter(word => word.length <= letters.length);
     inversedLetters.forEach(letter => {
@@ -73,26 +75,16 @@ const getTopThreeBestWords = (words) => {
     return sortedArray;
 }
 
-const FindScrabbleWordsFromLetters = (letters) => {
+const findScrabbleWordsFromLetters = (letters) => {
     return filterWordListByLetterFrequency(letters, filterOutUnusedLetters(letters));
 }
+
+export default (letters) => {
+    return getTopThreeBestWords(findScrabbleWordsFromLetters(letters.split('')))
+}
+
 
 export { filterOutUnusedLetters, filterWordListByLetterFrequency, 
     getFrequencyOfLetterInWord, convertLetterToPointValue, getPointValueOfWord, 
     getTopThreeBestWords, splitWord, fuseWord, 
-    FindScrabbleWordsFromLetters as default };
-
-
-
-
-
-
-
-// export const verifySevenLetters = (letters) => {
-//     return true;
-// }
-
-// letters.forEach(letter => {
-//     filteredList = filteredList.filter(word => word.includes(letter));
-//     console.log(letter, filteredList.length);
-// });
+    findScrabbleWordsFromLetters };

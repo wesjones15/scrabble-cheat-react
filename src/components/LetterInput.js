@@ -1,27 +1,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import { readOnSubmit } from '../actions/anagram';
+import verifySevenLetters from '../actions/verifySevenLetters';
+import returnBestWords from '../actions/anagram';
 
 class LetterInput extends React.Component {
     constructor(props) {
         super(props);
-
+        this.onInputChange = this.onInputChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        // this.returnBestWords = this.returnBestWords.bind(this);
         this.state = {
-            letters: ''
+            letters: '',
+            results: []
         };
     }
 
     onInputChange = (e) => {
-        const letters = e.target.value;
-        this.setState(() => ({ letters }));
-        // console.log(this.state);
+        const letters = e.target.value.toUpperCase();
+        if (verifySevenLetters(letters)) {
+            this.setState({letters});
+        }
     };
 
     onSubmit = (e) => {
         e.preventDefault();
         const letters = this.state.letters;
-        this.props.readOnSubmit(letters);
+        console.log(letters);
+        let arr = returnBestWords(letters);
+        console.log(arr);
         // console.log(this.state);
     };
 
@@ -29,7 +35,7 @@ class LetterInput extends React.Component {
         return (
             <form onSubmit={this.onSubmit}>
                 <h1>Enter your seven letters</h1>
-                <input onChange={this.onInputChange} type="text"/>
+                <input onChange={this.onInputChange} type="text" value={this.state.letters} />
                 <button>Find</button>
             </form>
         );
@@ -37,12 +43,11 @@ class LetterInput extends React.Component {
     
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    readOnSubmit: (letters) => dispatch(readOnSubmit(letters))
-});
+// const mapDispatchToProps = (dispatch) => ({
+//     returnBestWords: (letters) => dispatch(returnBestWords(letters)),
+//     verifySevenLetters: (letters) => dispatch(verifySevenLetters(letters))
+// });
 
-export default connect(undefined, mapDispatchToProps)(LetterInput);
+// export default connect(undefined, mapDispatchToProps)(LetterInput);
 
-// take 7 separate 1 char inputs (ideally it will auto switch to next input on entry)
-// set into array of strings
-// pass through function that finds words from a text file that match 
+export default LetterInput;

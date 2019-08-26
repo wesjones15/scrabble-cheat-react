@@ -1,7 +1,8 @@
 import React from 'react';
 
-export const ResultsList = () => (
+export const ResultsList = (props) => (
     <div>
+        
         Results List Component
     </div>
 );

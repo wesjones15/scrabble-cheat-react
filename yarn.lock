@@ -6059,6 +6059,11 @@ react-moment-proptypes@^1.5.0:
   dependencies:
     moment ">=1.6.0"
 
+react-native-filesystem@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-filesystem/-/react-native-filesystem-0.1.0.tgz#b66eebbfa046ac12cb5d2503eda78641fca58c23"
+  integrity sha1-tm7rv6BGrBLLXSUD7aeGQfyljCM=
+
 react-portal@^3.1.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/react-portal/-/react-portal-3.2.0.tgz#4224e19b2b05d5cbe730a7ba0e34ec7585de0043"
