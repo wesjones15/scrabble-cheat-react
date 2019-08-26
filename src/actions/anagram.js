@@ -1,14 +1,10 @@
-// const fs = require('fs');
 const path = require('path');
+import scrabbleWordList from '../../public/text/scrabble_word_list.txt';
 
 const filterOutUnusedLetters = (letters) => {
     const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-    const pathToWordList = path.resolve(__dirname,'../../public/scrabble_word_list.txt');
-    const scrabble_dictionary = ["DAYCARE", "REALITY", "ARTIST", "PISTOL", "LAPTOP"];  //temp 
-    // const scrabble_dictionary = fs.readFileSync(pathToWordList)
-    //                         .toString()
-    //                         .split('\r\n')
-    //                         .filter(word => word.length <= 7);
+    // const pathToWordList = path.resolve(__dirname,'../../public/text/scrabble_word_list.txt');
+    const scrabble_dictionary = scrabbleWordList.toString().split('\r\n').filter(word => word.length <= 7);
 
     let inversedLetters = alphabet.filter(char => !(letters.includes(char)));
     let filteredList = scrabble_dictionary.filter(word => word.length <= letters.length);

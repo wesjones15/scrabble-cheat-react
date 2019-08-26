@@ -27,17 +27,26 @@ class LetterInput extends React.Component {
         const letters = this.state.letters;
         console.log(letters);
         let arr = returnBestWords(letters);
+        this.setState({results: arr});
         console.log(arr);
         // console.log(this.state);
     };
 
     render() {
         return (
-            <form onSubmit={this.onSubmit}>
-                <h1>Enter your seven letters</h1>
-                <input onChange={this.onInputChange} type="text" value={this.state.letters} />
-                <button>Find</button>
-            </form>
+            <div>
+                <form onSubmit={this.onSubmit}>
+                    <h1>Enter your seven letters</h1>
+                    <input onChange={this.onInputChange} type="text" value={this.state.letters} />
+                    <button>Find</button>
+                </form>
+                <div>
+                    {this.state.results.map(result => (
+                        <p>{result[0]} {result[1]}</p>
+                    ))}
+                </div>
+            </div>
+            
         );
     }
     

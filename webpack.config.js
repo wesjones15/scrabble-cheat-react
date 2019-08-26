@@ -26,6 +26,9 @@ module.exports = (env) => {
                 test: /\.js$/,
                 exclude: /node_modules/
             }, {
+                test: /\.txt$/,
+                use: 'raw-loader'
+            }, {
                 test: /\.s?css$/,
                 use: CSSExtract.extract({
                     use: [
