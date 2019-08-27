@@ -51,7 +51,7 @@ class LetterInput extends React.Component {
     }
     
 };
-
+// const mapStateToProps = () => {};
 // const mapDispatchToProps = (dispatch) => ({
 //     returnBestWords: (letters) => dispatch(returnBestWords(letters)),
 //     verifySevenLetters: (letters) => dispatch(verifySevenLetters(letters))

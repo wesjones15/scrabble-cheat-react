@@ -2,12 +2,12 @@ import React from 'react';
 import Header from './Header';
 import LetterInput from './LetterInput';
 import ResultsList from './ResultsList';
+import InputComponent from './InputComponent';
 
 const DashboardPage = () => (
     <div>
         <Header />
-        <LetterInput />
-        <ResultsList />
+        <InputComponent />
     </div>
 );
 
@@ -20,3 +20,6 @@ const DashboardPage = () => (
 
 
 export default DashboardPage;
+
+// <LetterInput />
+// <ResultsList />

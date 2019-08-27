@@ -1,4 +1,4 @@
-const path = require('path');
+// const path = require('path');
 import scrabbleWordList from '../../public/text/scrabble_word_list.txt';
 
 const filterOutUnusedLetters = (letters) => {
